@@ -7,12 +7,15 @@
 using namespace std;
 using namespace cv;
 
+// #define PROCESS_IMAGE
+
 int main( int argc, char** argv )
 {
 
     srand(time(NULL));
-    namedWindow( "frame" );
 
+#ifndef PROCESS_IMAGE
+    namedWindow( "frame" );
     cv::VideoCapture cap( argv[1] );
     bool isPlaying = true;
 
@@ -41,7 +44,13 @@ int main( int argc, char** argv )
         }
 
     }
+#else
+    cv::Mat frame = cv::imread( argv[1] );
+    imshow( "frame", frame );
+    cv::waitKey(0);
+#endif
 
     return 0;
 
 }
+
